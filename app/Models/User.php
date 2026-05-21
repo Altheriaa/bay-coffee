@@ -40,4 +40,8 @@ class User extends Authenticatable implements FilamentUser
     public function isAdmin() {
         return $this->role === 'admin';
     }
+
+    public function customers() {
+        return $this->hasOne(Customer::class);
+    }
 }

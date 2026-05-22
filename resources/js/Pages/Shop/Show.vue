@@ -1,3 +1,29 @@
+<script setup>
+import { Link } from '@inertiajs/vue3';
+import { ref } from 'vue';
+import AppLayout from '../Layouts/App.vue';
+
+const qty = ref(1);
+
+// Dummy data — will be replaced with props from backend
+const props = defineProps({
+  product: Object,
+})
+
+const perks = [
+  { icon: 'local_shipping', label: 'Free Shipping',     sub: 'On orders over Rp 400.000' },
+  { icon: 'timer',          label: 'Roasted to Order',  sub: 'Ships within 48 hours' },
+  { icon: 'undo',           label: 'Easy Returns',      sub: '30-day money-back guarantee' },
+];
+
+const related = [
+  { name: 'Guatemala Antigua',    weight: '12oz · Medium Roast', price: 'Rp 165.000', icon: 'local_cafe',   slug: 'guatemala-antigua' },
+  { name: 'House Blend – Medium', weight: '16oz · Medium Roast', price: 'Rp 210.000', icon: 'coffee_maker', slug: 'house-blend-medium' },
+  { name: 'Colombian Supremo',    weight: '12oz · Medium Roast', price: 'Rp 170.000', icon: 'local_cafe',   slug: 'colombian-supremo' },
+  { name: 'French Roast Dark',    weight: '16oz · Dark Roast',   price: 'Rp 210.000', icon: 'inventory_2',  slug: 'french-roast-dark' },
+];
+</script>
+
 <template>
   <AppLayout>
 
@@ -9,7 +35,7 @@
           <span class="material-symbols-outlined text-xs">chevron_right</span>
           <Link href="/shop" class="hover:text-secondary transition-colors duration-200">Shop</Link>
           <span class="material-symbols-outlined text-xs">chevron_right</span>
-          <span class="text-primary font-medium">{{ product.name }}</span>
+          <span class="text-primary font-medium">{{ product.nama_product }}</span>
         </nav>
       </div>
     </section>
@@ -25,7 +51,7 @@
               <!-- Main Image -->
               <div class="aspect-square rounded-2xl overflow-hidden bg-surface-container-low border border-outline-variant/20 mb-3 sm:mb-4">
                 <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-surface-container to-surface-container-high">
-                  <span class="material-symbols-outlined text-outline/30" style="font-size:120px; font-variation-settings:'FILL' 1">{{ product.icon }}</span>
+                  <img loading="lazy" :src="product.foto_product ? `/storage/${product.foto_product}` : null" alt="" class="w-full h-full object-cover">
                 </div>
               </div>
               <!-- Thumbnail Row -->
@@ -35,7 +61,7 @@
                   :class="n === 1 ? 'border-secondary' : 'border-outline-variant/20 hover:border-secondary/50'"
                 >
                   <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-surface-container to-surface-container-high">
-                    <span class="material-symbols-outlined text-outline/30" style="font-size:32px; font-variation-settings:'FILL' 1">{{ product.icon }}</span>
+                    <img loading="lazy" :src="product.foto_product ? `/storage/${product.foto_product}` : null" alt="" class="w-full h-full object-cover">
                   </div>
                 </div>
               </div>
@@ -53,7 +79,7 @@
             </div>
 
             <!-- Title & Rating -->
-            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-primary mb-2">{{ product.name }}</h1>
+            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-primary mb-2">{{ product.nama_product }}</h1>
             <div class="flex items-center gap-3 mb-4">
               <div class="flex items-center gap-0.5">
                 <span v-for="n in 5" :key="n"
@@ -65,20 +91,20 @@
 
             <!-- Price -->
             <div class="flex items-baseline gap-3 mb-6">
-              <span class="text-2xl sm:text-3xl font-bold text-primary">{{ product.price }}</span>
-              <span v-if="product.oldPrice" class="text-base text-on-surface-variant line-through">{{ product.oldPrice }}</span>
+              <span class="text-2xl sm:text-3xl font-bold text-primary">Rp. {{ product.harga }}</span>
+              <span v-if="product.oldPrice" class="text-base text-on-surface-variant line-through">Rp. {{ product.oldPrice }}</span>
             </div>
 
             <!-- Description -->
             <p class="text-sm sm:text-base text-on-surface-variant leading-relaxed mb-6 pb-6 border-b border-outline-variant/20">
-              {{ product.description }}
+              {{ product.deskripsi }}
             </p>
 
             <!-- Details -->
             <div class="grid grid-cols-2 gap-4 mb-6 pb-6 border-b border-outline-variant/20">
-              <div v-for="detail in product.details" :key="detail.label">
-                <div class="text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-1">{{ detail.label }}</div>
-                <div class="text-sm font-semibold text-primary">{{ detail.value }}</div>
+              <div>
+                <!-- <div class="text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-1">{{ product.stok }}</div> -->
+                <div class="text-sm font-semibold text-primary">Stok : {{ product.stok }}</div>
               </div>
             </div>
 
@@ -151,41 +177,3 @@
   </AppLayout>
 </template>
 
-<script setup>
-import { Link } from '@inertiajs/vue3';
-import { ref } from 'vue';
-import AppLayout from '../Layouts/App.vue';
-
-const qty = ref(1);
-
-// Dummy data — will be replaced with props from backend
-const product = {
-  name: 'cek-cart',
-  icon: 'coffee',
-  badge: 'Best Seller',
-  rating: '4.9',
-  reviews: '128',
-  price: 'Rp 180.000',
-  oldPrice: 'Rp 220.000',
-  description: 'A bright, complex single-origin coffee with delicate floral aromatics, vibrant citrus acidity, and a silky sweet finish. Grown at high altitudes in the Yirgacheffe region of Ethiopia, this light roast showcases the best of African coffee traditions.',
-  details: [
-    { label: 'Origin',  value: 'Yirgacheffe, Ethiopia' },
-    { label: 'Roast',   value: 'Light' },
-    { label: 'Weight',  value: '12 oz (340g)' },
-    { label: 'Process', value: 'Washed' },
-  ],
-};
-
-const perks = [
-  { icon: 'local_shipping', label: 'Free Shipping',     sub: 'On orders over Rp 400.000' },
-  { icon: 'timer',          label: 'Roasted to Order',  sub: 'Ships within 48 hours' },
-  { icon: 'undo',           label: 'Easy Returns',      sub: '30-day money-back guarantee' },
-];
-
-const related = [
-  { name: 'Guatemala Antigua',    weight: '12oz · Medium Roast', price: 'Rp 165.000', icon: 'local_cafe',   slug: 'guatemala-antigua' },
-  { name: 'House Blend – Medium', weight: '16oz · Medium Roast', price: 'Rp 210.000', icon: 'coffee_maker', slug: 'house-blend-medium' },
-  { name: 'Colombian Supremo',    weight: '12oz · Medium Roast', price: 'Rp 170.000', icon: 'local_cafe',   slug: 'colombian-supremo' },
-  { name: 'French Roast Dark',    weight: '16oz · Dark Roast',   price: 'Rp 210.000', icon: 'inventory_2',  slug: 'french-roast-dark' },
-];
-</script>

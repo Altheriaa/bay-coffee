@@ -1,3 +1,58 @@
+<script setup>
+import { Link } from '@inertiajs/vue3';
+import AppLayout from './Layouts/App.vue';
+
+defineProps({ message: String });
+
+const badges = [
+  { icon: 'local_shipping',    label: 'Free Shipping',          sub: 'On orders over Rp 400.000'  },
+  { icon: 'timer',             label: 'Roasted Fresh',          sub: 'Ships within 48 hrs' },
+  { icon: 'eco',               label: 'Sustainably Sourced',    sub: 'Direct trade farms'  },
+  { icon: 'workspace_premium', label: 'Satisfaction Guarantee', sub: 'Or full refund'      },
+];
+
+const collections = [
+  {
+    name: 'Light Roast',
+    tag: 'Bright & Vibrant',
+    desc: 'Floral, citrus, and berry notes. Perfect for pour-over and filter brews.',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCmZvw5twNUS227wksoxR7lwpIMKw-uNkeYnq_-vD_k2iLW-nUkiebkTEwTURe8W0RomTjAG877jAbE5G3eAsUVJ4uZxrw8hz4sK1WCKaF_wEI9sp120bC0zRYP242J6FMoofokqLISkcztapYTYI1g0Wh21Ikggb6fNFQYwR7scgLyHhL3xJK3Zyl-RllQNBaQ4LkX9MEt0c6NcO8GEJoVnG4ILsHK-re2Kc6ZI-78DAvvY2dZhu5mgVVVSGDzBIRnAnVrcqtyBcg',
+  },
+  {
+    name: 'Medium Roast',
+    tag: 'Balanced & Smooth',
+    desc: 'Caramel, chocolate, and toasted nuts. A crowd favourite for any brew method.',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB2Pb6HcvAmDiZmgfuFS9OencFP5pwh-dJZ13As8Kny5xnwTj674bVxA-qa4qD6_23pfHH4lNa1ZwgA-6TCFlTy5jWrr484inalYHMuhUV9u6fYxXpdG2Bes-XPLEctO8zx08R4uzElOjuh4y6eZclCL5mU9dCx_Bk84ZNuKh6ZYeUGbam_wjyIty7_84ESONIjFAwMEcSy9AEorAZu5VXSTfV_ToC4PMVF7yt8aeTfXtcq65vgjZKPQTrTA_aalH1maWD9fr42Gzo',
+  },
+  {
+    name: 'Dark Roast',
+    tag: 'Bold & Intense',
+    desc: 'Smoky, dark cocoa and espresso character. Ideal for strong morning brews.',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA2_fclPdI7Mf2H1W0RDS2TI4hbvgR5Z3GAAyBKhRpf5aXcThkkG2HfSyIt09-01sngvka4Yd-S31LT2O-8V0rCvj-FOP4lEA0QiHKVpWfOD4OfS_6unOw3gr4v2GoLe558hLxBjR3xC3KrATPGag-O9kZPTQaYOJ8Hx8XxInteKYVpu81e2VRgvDzwRKI5YTyGPTZkhfE_jlmsnGdHigLMK6Z1sP0h33biK1yYonte32uVA69mMZ708l5NmJCXMIEx2LdAUheHvdM',
+  },
+];
+
+const stats = [
+  { value: '12+',  label: 'Countries sourced'  },
+  { value: '50k+', label: 'Happy customers'    },
+  { value: '48hr', label: 'From roast to door' },
+  { value: '100%', label: 'Traceable origins'  },
+];
+
+const products = [
+  { name: 'Ethiopian Yirgacheffe', weight: '12oz · Light Roast',  price: 'Rp 180.000', rating: '4.9', icon: 'coffee',       badge: 'Best Seller' },
+  { name: 'Guatemala Antigua',     weight: '12oz · Medium Roast', price: 'Rp 165.000', rating: '4.8', icon: 'local_cafe',   badge: null          },
+  { name: 'House Blend – Medium',  weight: '16oz · Medium Roast', price: 'Rp 210.000', rating: '4.7', icon: 'coffee_maker', badge: 'Hot'         },
+  { name: 'French Roast Dark',     weight: '16oz · Dark Roast',   price: 'Rp 210.000', rating: '4.6', icon: 'inventory_2',  badge: null          },
+];
+
+const reviews = [
+  { name: 'Sarah M.', location: 'New York, USA',  quote: 'The Ethiopian Yirgacheffe is absolutely stunning — floral and bright, unlike anything I\'ve had from a local café.',                                          color: '#7d562d' },
+  { name: 'James K.', location: 'London, UK',     quote: 'I\'ve tried dozens of subscription services. Ebay & Coffee is the only one I keep coming back to. The freshness makes all the difference.',              color: '#271310' },
+  { name: 'Priya R.', location: 'Melbourne, AUS', quote: 'Sustainable sourcing that you can actually taste. Knowing the farm my beans came from makes every sip feel meaningful.',                                   color: '#745853' },
+];
+</script>
+
 <template>
   <AppLayout>
 
@@ -231,57 +286,4 @@
   </AppLayout>
 </template>
 
-<script setup>
-import { Link } from '@inertiajs/vue3';
-import AppLayout from './Layouts/App.vue';
 
-defineProps({ message: String });
-
-const badges = [
-  { icon: 'local_shipping',    label: 'Free Shipping',          sub: 'On orders over Rp 400.000'  },
-  { icon: 'timer',             label: 'Roasted Fresh',          sub: 'Ships within 48 hrs' },
-  { icon: 'eco',               label: 'Sustainably Sourced',    sub: 'Direct trade farms'  },
-  { icon: 'workspace_premium', label: 'Satisfaction Guarantee', sub: 'Or full refund'      },
-];
-
-const collections = [
-  {
-    name: 'Light Roast',
-    tag: 'Bright & Vibrant',
-    desc: 'Floral, citrus, and berry notes. Perfect for pour-over and filter brews.',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCmZvw5twNUS227wksoxR7lwpIMKw-uNkeYnq_-vD_k2iLW-nUkiebkTEwTURe8W0RomTjAG877jAbE5G3eAsUVJ4uZxrw8hz4sK1WCKaF_wEI9sp120bC0zRYP242J6FMoofokqLISkcztapYTYI1g0Wh21Ikggb6fNFQYwR7scgLyHhL3xJK3Zyl-RllQNBaQ4LkX9MEt0c6NcO8GEJoVnG4ILsHK-re2Kc6ZI-78DAvvY2dZhu5mgVVVSGDzBIRnAnVrcqtyBcg',
-  },
-  {
-    name: 'Medium Roast',
-    tag: 'Balanced & Smooth',
-    desc: 'Caramel, chocolate, and toasted nuts. A crowd favourite for any brew method.',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuB2Pb6HcvAmDiZmgfuFS9OencFP5pwh-dJZ13As8Kny5xnwTj674bVxA-qa4qD6_23pfHH4lNa1ZwgA-6TCFlTy5jWrr484inalYHMuhUV9u6fYxXpdG2Bes-XPLEctO8zx08R4uzElOjuh4y6eZclCL5mU9dCx_Bk84ZNuKh6ZYeUGbam_wjyIty7_84ESONIjFAwMEcSy9AEorAZu5VXSTfV_ToC4PMVF7yt8aeTfXtcq65vgjZKPQTrTA_aalH1maWD9fr42Gzo',
-  },
-  {
-    name: 'Dark Roast',
-    tag: 'Bold & Intense',
-    desc: 'Smoky, dark cocoa and espresso character. Ideal for strong morning brews.',
-    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuA2_fclPdI7Mf2H1W0RDS2TI4hbvgR5Z3GAAyBKhRpf5aXcThkkG2HfSyIt09-01sngvka4Yd-S31LT2O-8V0rCvj-FOP4lEA0QiHKVpWfOD4OfS_6unOw3gr4v2GoLe558hLxBjR3xC3KrATPGag-O9kZPTQaYOJ8Hx8XxInteKYVpu81e2VRgvDzwRKI5YTyGPTZkhfE_jlmsnGdHigLMK6Z1sP0h33biK1yYonte32uVA69mMZ708l5NmJCXMIEx2LdAUheHvdM',
-  },
-];
-
-const stats = [
-  { value: '12+',  label: 'Countries sourced'  },
-  { value: '50k+', label: 'Happy customers'    },
-  { value: '48hr', label: 'From roast to door' },
-  { value: '100%', label: 'Traceable origins'  },
-];
-
-const products = [
-  { name: 'Ethiopian Yirgacheffe', weight: '12oz · Light Roast',  price: 'Rp 180.000', rating: '4.9', icon: 'coffee',       badge: 'Best Seller' },
-  { name: 'Guatemala Antigua',     weight: '12oz · Medium Roast', price: 'Rp 165.000', rating: '4.8', icon: 'local_cafe',   badge: null          },
-  { name: 'House Blend – Medium',  weight: '16oz · Medium Roast', price: 'Rp 210.000', rating: '4.7', icon: 'coffee_maker', badge: 'Hot'         },
-  { name: 'French Roast Dark',     weight: '16oz · Dark Roast',   price: 'Rp 210.000', rating: '4.6', icon: 'inventory_2',  badge: null          },
-];
-
-const reviews = [
-  { name: 'Sarah M.', location: 'New York, USA',  quote: 'The Ethiopian Yirgacheffe is absolutely stunning — floral and bright, unlike anything I\'ve had from a local café.',                                          color: '#7d562d' },
-  { name: 'James K.', location: 'London, UK',     quote: 'I\'ve tried dozens of subscription services. Ebay & Coffee is the only one I keep coming back to. The freshness makes all the difference.',              color: '#271310' },
-  { name: 'Priya R.', location: 'Melbourne, AUS', quote: 'Sustainable sourcing that you can actually taste. Knowing the farm my beans came from makes every sip feel meaningful.',                                   color: '#745853' },
-];
-</script>

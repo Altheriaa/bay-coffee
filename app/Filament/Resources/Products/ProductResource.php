@@ -52,6 +52,8 @@ class ProductResource extends Resource
                 TextInput::make('nama_product')
                     ->unique()
                     ->required(),
+                Textarea::make('deskripsi')
+                    ->required(),
                 TextInput::make('harga')
                     ->required()
                     ->numeric()
@@ -89,6 +91,10 @@ class ProductResource extends Resource
                     ->sortable(),
                 TextColumn::make('nama_product')
                     ->label('Nama Produk')
+                    ->searchable(),
+                TextColumn::make('deskripsi')
+                    ->label('Deskripsi')
+                    ->wrap()
                     ->searchable(),
                 TextColumn::make('harga')
                     ->label('Harga')

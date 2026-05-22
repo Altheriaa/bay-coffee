@@ -1,6 +1,20 @@
+<script setup>
+import { Link } from '@inertiajs/vue3';
+import AppLayout from '../Layouts/App.vue';
+
+const categories = ['Single Origin', 'Blends', 'Decaf', 'Flavoured'];
+const roastLevels = ['Light', 'Medium', 'Medium-Dark', 'Dark'];
+const priceRanges = ['Di bawah Rp 150.000', 'Rp 150.000 – Rp 200.000', 'Rp 200.000 – Rp 300.000', 'Di atas Rp 300.000'];
+
+const props = defineProps({
+    products: Array,
+    error: Object,
+})
+
+</script>
+
 <template>
   <AppLayout>
-
     <!-- ===== PAGE HEADER ===== -->
     <section class="bg-primary py-12 sm:py-16">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -81,29 +95,31 @@
 
             <!-- Product Grid -->
             <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5">
-              <div v-for="product in products" :key="product.name"
+              <div v-for="product in products" :key="product.product_name"
                 class="group bg-surface-container-lowest rounded-xl sm:rounded-2xl overflow-hidden shadow-sm hover:shadow-md border border-outline-variant/20 flex flex-col transition-shadow duration-300"
               >
-                <div class="relative aspect-square overflow-hidden bg-surface-container-low">
-                  <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-surface-container to-surface-container-high">
-                    <span class="material-symbols-outlined text-outline/40" style="font-size:56px; font-variation-settings:'FILL' 1">{{ product.icon }}</span>
-                  </div>
-                  <span v-if="product.badge"
-                    class="absolute top-2 sm:top-3 left-2 sm:left-3 text-[9px] sm:text-[10px] font-bold uppercase tracking-widest px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full"
-                    :class="product.badge === 'Best Seller' ? 'bg-secondary text-on-secondary' : 'bg-primary text-on-primary'"
-                  >{{ product.badge }}</span>
-                </div>
+                <Link :href="`/shop/${product.id}`">
+                    <div class="relative aspect-square overflow-hidden bg-surface-container-low">
+                    <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-surface-container to-surface-container-high">
+                        <img loading="lazy" :src="product.foto_product ? `/storage/${product.foto_product}` : null" alt="" class="w-full h-full object-cover">
+                    </div>
+                    <span v-if="product.badge"
+                        class="absolute top-2 sm:top-3 left-2 sm:left-3 text-[9px] sm:text-[10px] font-bold uppercase tracking-widest px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full"
+                        :class="product.badge === 'Best Seller' ? 'bg-secondary text-on-secondary' : 'bg-primary text-on-primary'"
+                    >Badges</span>
+                    </div>
 
-                <div class="p-3 sm:p-4 flex flex-col flex-grow">
-                  <h4 class="font-bold text-xs sm:text-sm text-primary leading-snug mb-0.5">{{ product.name }}</h4>
-                  <p class="text-[10px] sm:text-xs text-on-surface-variant mb-3">{{ product.weight }}</p>
-                  <div class="mt-auto flex items-center justify-between">
-                    <span class="font-bold text-sm sm:text-base text-primary">{{ product.price }}</span>
-                    <button class="p-1.5 sm:p-2 rounded-lg sm:rounded-xl bg-secondary/10 hover:bg-secondary text-secondary hover:text-on-secondary transition-all duration-200">
-                      <span class="material-symbols-outlined text-sm sm:text-base" style="font-variation-settings:'FILL' 1">add_shopping_cart</span>
-                    </button>
-                  </div>
-                </div>
+                    <div class="p-3 sm:p-4 flex flex-col flex-grow">
+                    <h4 class="font-bold text-xs sm:text-sm text-primary leading-snug mb-0.5">{{ product.nama_product }}</h4>
+                    <p class="text-[10px] sm:text-xs text-on-surface-variant mb-3">26g</p>
+                    <div class="mt-auto flex items-center justify-between">
+                        <span class="font-bold text-sm sm:text-base text-primary">Rp. {{ product.harga }}</span>
+                        <button class="p-1.5 sm:p-2 rounded-lg sm:rounded-xl bg-secondary/10 hover:bg-secondary text-secondary hover:text-on-secondary transition-all duration-200">
+                        <span class="material-symbols-outlined text-sm sm:text-base" style="font-variation-settings:'FILL' 1">add_shopping_cart</span>
+                        </button>
+                    </div>
+                    </div>
+                </Link>
               </div>
             </div>
 
@@ -115,22 +131,4 @@
   </AppLayout>
 </template>
 
-<script setup>
-import { Link } from '@inertiajs/vue3';
-import AppLayout from '../Layouts/App.vue';
 
-defineProps({ message: String });
-
-const categories = ['Single Origin', 'Blends', 'Decaf', 'Flavoured'];
-const roastLevels = ['Light', 'Medium', 'Medium-Dark', 'Dark'];
-const priceRanges = ['Di bawah Rp 150.000', 'Rp 150.000 – Rp 200.000', 'Rp 200.000 – Rp 300.000', 'Di atas Rp 300.000'];
-
-const products = [
-  { name: 'Ethiopian Yirgacheffe', weight: '12oz · Light Roast',  price: 'Rp 180.000', rating: '4.9', icon: 'coffee',       badge: 'Best Seller' },
-  { name: 'Guatemala Antigua',     weight: '12oz · Medium Roast', price: 'Rp 165.000', rating: '4.8', icon: 'local_cafe',   badge: null          },
-  { name: 'House Blend – Medium',  weight: '16oz · Medium Roast', price: 'Rp 210.000', rating: '4.7', icon: 'coffee_maker', badge: 'Hot'         },
-  { name: 'French Roast Dark',     weight: '16oz · Dark Roast',   price: 'Rp 210.000', rating: '4.6', icon: 'inventory_2',  badge: null          },
-  { name: 'Colombian Supremo',     weight: '12oz · Medium Roast', price: 'Rp 170.000', rating: '4.8', icon: 'local_cafe',   badge: null          },
-  { name: 'Sumatra Mandheling',    weight: '12oz · Dark Roast',   price: 'Rp 195.000', rating: '4.7', icon: 'coffee',       badge: null          },
-];
-</script>

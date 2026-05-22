@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -20,17 +21,8 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/shop', function () {
-    return Inertia::render('Shop/Index', [
-        'message' => 'Selamat datang!'
-    ]);
-});
-
-Route::get('/shop/{slug}', function ($slug) {
-    return Inertia::render('Shop/Show', [
-        'slug' => $slug,
-    ]);
-});
+Route::get('/shop', [ProductController::class, 'index'])->name('shop');
+Route::get('/shop/{product}', [ProductController::class, 'show'])->name('shop.show');
 
 Route::get('/cart', function () {
     return Inertia::render('Cart/Index');

@@ -1,22 +1,19 @@
 <script setup>
-import { Link } from '@inertiajs/vue3';
-import { reactive, computed } from 'vue';
+import { Link, router } from '@inertiajs/vue3';
+import { computed } from 'vue';
 import AppLayout from '../Layouts/App.vue';
 
-// Dummy cart data — will be replaced with real state management later
-const cartItems = reactive([
-  { name: 'Ethiopian Yirgacheffe', weight: '12oz · Light Roast',  price: 'Rp 180.000', icon: 'coffee',       qty: 2 },
-  { name: 'Guatemala Antigua',     weight: '12oz · Medium Roast', price: 'Rp 165.000', icon: 'local_cafe',   qty: 1 },
-  { name: 'House Blend – Medium',  weight: '16oz · Medium Roast', price: 'Rp 210.000', icon: 'coffee_maker', qty: 1 },
-]);
+const props = defineProps({
+    carts: Array,
+})
 
 const formatRupiah = (value) => {
   return 'Rp ' + value.toLocaleString('id-ID');
 };
 
 const subtotal = computed(() => {
-  return cartItems.reduce((sum, item) => {
-    return sum + (parseInt(item.price.replace(/[^\d]/g, ''), 10) || 0) * item.qty;
+  return props.carts.reduce((sum, item) => {
+    return sum + (item.product.harga * item.qty);
   }, 0);
 });
 
@@ -25,11 +22,27 @@ const total = computed(() => {
   return subtotal.value + shipping;
 });
 
-const trustBadges = [
-  { icon: 'verified_user', label: 'Secure' },
-  { icon: 'credit_card',   label: 'Encrypted' },
-  { icon: 'undo',          label: '30-day Return' },
-];
+const updateQty = (cartItemId, currentQty, amount) => {
+  const newQty = currentQty + amount;
+  if (newQty < 1) return;
+  router.patch(`/cart/${cartItemId}`, {
+    qty: newQty
+  }, {
+    preserveScroll: true
+  });
+}
+
+const removeItem = (cartItemId) => {
+  router.delete(`/cart/${cartItemId}`, {
+    preserveScroll: true
+  });
+}
+
+// const trustBadges = [
+//   { icon: 'verified_user', label: 'Secure' },
+//   { icon: 'credit_card',   label: 'Encrypted' },
+//   { icon: 'undo',          label: '30-day Return' },
+// ];
 </script>
 
 <template>
@@ -43,7 +56,7 @@ const trustBadges = [
           <span class="text-on-primary font-medium">Cart</span>
         </nav>
         <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-on-primary">Shopping Cart</h1>
-        <p class="text-sm text-on-primary/60 mt-1">{{ cartItems.length }} items in your cart</p>
+        <p class="text-sm text-on-primary/60 mt-1">{{ carts.length }} items in your cart</p>
       </div>
     </section>
 
@@ -52,7 +65,7 @@ const trustBadges = [
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <!-- Empty State -->
-        <div v-if="cartItems.length === 0" class="text-center py-20">
+        <div v-if="carts.length === 0" class="text-center py-20">
           <div class="w-20 h-20 mx-auto mb-5 rounded-full bg-surface-container flex items-center justify-center">
             <span class="material-symbols-outlined text-outline/40 text-4xl" style="font-variation-settings:'FILL' 0">shopping_cart</span>
           </div>
@@ -79,7 +92,7 @@ const trustBadges = [
             </div>
 
             <!-- Items -->
-            <div v-for="(item, index) in cartItems" :key="item.name"
+            <div v-for="(item, index) in carts" :key="item.id"
               class="border-b border-outline-variant/20 py-5 sm:py-6"
             >
               <div class="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center">
@@ -88,13 +101,14 @@ const trustBadges = [
                 <div class="sm:col-span-6 flex items-center gap-4">
                   <div class="w-20 h-20 sm:w-24 sm:h-24 rounded-xl overflow-hidden bg-surface-container-low border border-outline-variant/20 flex-shrink-0">
                     <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-surface-container to-surface-container-high">
-                      <span class="material-symbols-outlined text-outline/40" style="font-size:36px; font-variation-settings:'FILL' 1">{{ item.icon }}</span>
+                      <img v-if="item.product.foto_product" loading="lazy" :src="`/storage/${item.product.foto_product}`" :alt="item.product.nama_product" class="w-full h-full object-cover">
+                      <span v-else class="material-symbols-outlined text-outline/40" style="font-size:36px; font-variation-settings:'FILL' 1">local_cafe</span>
                     </div>
                   </div>
                   <div class="min-w-0">
-                    <h3 class="text-sm sm:text-base font-bold text-primary leading-snug">{{ item.name }}</h3>
-                    <p class="text-xs text-on-surface-variant mt-0.5">{{ item.weight }}</p>
-                    <button @click="cartItems.splice(index, 1)"
+                    <h3 class="text-sm sm:text-base font-bold text-primary leading-snug">{{ item.product.nama_product }}</h3>
+                    <p class="text-xs text-on-surface-variant mt-0.5">{{ item.product.weight }} {{ item.product.satuan }}</p>
+                    <button @click="removeItem(item.id)"
                       class="mt-2 inline-flex items-center gap-1 text-xs text-error hover:text-error/80 font-medium transition-colors duration-200">
                       <span class="material-symbols-outlined text-xs">delete</span>
                       Remove
@@ -105,18 +119,18 @@ const trustBadges = [
                 <!-- Price -->
                 <div class="sm:col-span-2 text-sm font-semibold text-on-surface-variant sm:text-center">
                   <span class="sm:hidden text-xs text-on-surface-variant font-normal mr-1">Price:</span>
-                  {{ item.price }}
+                  {{ formatRupiah(item.product.harga) }}
                 </div>
 
                 <!-- Quantity -->
                 <div class="sm:col-span-2 flex sm:justify-center">
                   <div class="inline-flex items-center border border-outline-variant/30 rounded-lg overflow-hidden">
-                    <button @click="item.qty > 1 && item.qty--"
+                    <button @click="updateQty(item.id, item.qty, -1)"
                       class="w-8 h-8 flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors duration-200">
                       <span class="material-symbols-outlined text-sm">remove</span>
                     </button>
                     <span class="w-10 h-8 flex items-center justify-center text-xs font-semibold text-primary border-x border-outline-variant/30">{{ item.qty }}</span>
-                    <button @click="item.qty++"
+                    <button @click="updateQty(item.id, item.qty, 1)"
                       class="w-8 h-8 flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors duration-200">
                       <span class="material-symbols-outlined text-sm">add</span>
                     </button>
@@ -126,7 +140,7 @@ const trustBadges = [
                 <!-- Subtotal -->
                 <div class="sm:col-span-2 text-sm font-bold text-primary sm:text-right">
                   <span class="sm:hidden text-xs text-on-surface-variant font-normal mr-1">Subtotal:</span>
-                  {{ formatRupiah(parseInt(item.price.replace(/[^\d]/g, ''), 10) * item.qty) }}
+                  {{ formatRupiah(item.product.harga * item.qty) }}
                 </div>
               </div>
             </div>
@@ -166,18 +180,6 @@ const trustBadges = [
                 </div>
               </div>
 
-              <!-- Promo Code -->
-              <div class="mb-5 pb-5 border-b border-outline-variant/20">
-                <label class="text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2 block">Promo Code</label>
-                <div class="flex gap-2">
-                  <input type="text" placeholder="Enter code"
-                    class="flex-grow text-sm bg-surface border border-outline-variant/30 rounded-xl px-3 py-2.5 text-on-surface placeholder-outline focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all duration-200" />
-                  <button class="px-4 py-2.5 bg-primary/10 hover:bg-primary/20 text-primary text-sm font-semibold rounded-xl transition-colors duration-200">
-                    Apply
-                  </button>
-                </div>
-              </div>
-
               <!-- Total -->
               <div class="flex justify-between items-baseline mb-6">
                 <span class="text-base font-bold text-primary">Total</span>
@@ -189,14 +191,6 @@ const trustBadges = [
                 <span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1">lock</span>
                 Proceed to Checkout
               </button>
-
-              <!-- Trust -->
-              <div class="flex items-center justify-center gap-4 pt-4">
-                <div v-for="badge in trustBadges" :key="badge" class="flex items-center gap-1 text-on-surface-variant">
-                  <span class="material-symbols-outlined text-xs" style="font-variation-settings:'FILL' 1">{{ badge.icon }}</span>
-                  <span class="text-[10px] font-medium">{{ badge.label }}</span>
-                </div>
-              </div>
             </div>
           </div>
 

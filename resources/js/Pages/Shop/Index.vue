@@ -1,5 +1,6 @@
 <script setup>
-import { Link } from '@inertiajs/vue3';
+import { Link, router } from '@inertiajs/vue3';
+import { ref } from 'vue';
 import AppLayout from '../Layouts/App.vue';
 
 const categories = ['Single Origin', 'Blends', 'Decaf', 'Flavoured'];
@@ -10,6 +11,25 @@ const props = defineProps({
     products: Array,
     error: Object,
 })
+
+const formatRupiah = (value) => {
+  return 'Rp ' + value.toLocaleString('id-ID');
+};
+
+const loadingProductId = ref(null);
+
+const addToCart = (productId) => {
+    loadingProductId.value = productId;
+    router.post('/cart', {
+        product_id: productId,
+        qty: 1
+    }, {
+        preserveScroll: true,
+        onFinish: () => {
+            loadingProductId.value = null;
+        }
+    })
+}
 
 </script>
 
@@ -98,28 +118,29 @@ const props = defineProps({
               <div v-for="product in products" :key="product.product_name"
                 class="group bg-surface-container-lowest rounded-xl sm:rounded-2xl overflow-hidden shadow-sm hover:shadow-md border border-outline-variant/20 flex flex-col transition-shadow duration-300"
               >
-                <Link :href="`/shop/${product.id}`">
                     <div class="relative aspect-square overflow-hidden bg-surface-container-low">
                     <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-surface-container to-surface-container-high">
-                        <img loading="lazy" :src="product.foto_product ? `/storage/${product.foto_product}` : null" alt="" class="w-full h-full object-cover">
+                          <img loading="lazy" :src="product.foto_product ? `/storage/${product.foto_product}` : null" alt="" class="w-full h-full object-cover">
                     </div>
-                    <span v-if="product.badge"
+                    <!-- <span v-if="product.badge"
                         class="absolute top-2 sm:top-3 left-2 sm:left-3 text-[9px] sm:text-[10px] font-bold uppercase tracking-widest px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full"
                         :class="product.badge === 'Best Seller' ? 'bg-secondary text-on-secondary' : 'bg-primary text-on-primary'"
-                    >Badges</span>
+                    >Badges</span> -->
                     </div>
 
                     <div class="p-3 sm:p-4 flex flex-col flex-grow">
-                    <h4 class="font-bold text-xs sm:text-sm text-primary leading-snug mb-0.5">{{ product.nama_product }}</h4>
-                    <p class="text-[10px] sm:text-xs text-on-surface-variant mb-3">26g</p>
+                    <Link :href="`/shop/${product.id}`">
+                      <h4 class="font-bold text-xs sm:text-sm text-primary leading-snug mb-0.5">{{ product.nama_product }}</h4>
+                    </Link>
+                    <p class="text-[10px] sm:text-xs text-on-surface-variant mb-3">{{ product.weight + ' ' + product.satuan }}</p>
                     <div class="mt-auto flex items-center justify-between">
-                        <span class="font-bold text-sm sm:text-base text-primary">Rp. {{ product.harga }}</span>
-                        <button class="p-1.5 sm:p-2 rounded-lg sm:rounded-xl bg-secondary/10 hover:bg-secondary text-secondary hover:text-on-secondary transition-all duration-200">
-                        <span class="material-symbols-outlined text-sm sm:text-base" style="font-variation-settings:'FILL' 1">add_shopping_cart</span>
-                        </button>
+                      <span class="font-bold text-sm sm:text-base text-primary">{{ formatRupiah(product.harga) }}</span>
+                      <button :disabled="loadingProductId === product.id" @click="addToCart(product.id)" class="p-1.5 sm:p-2 rounded-lg sm:rounded-xl bg-secondary/10 hover:bg-secondary text-secondary hover:text-on-secondary transition-all duration-200 disabled:opacity-50 flex items-center justify-center min-w-[32px] sm:min-w-[40px] h-[32px] sm:h-[40px]">
+                          <span v-if="loadingProductId === product.id" class="animate-spin inline-block w-4 h-4 border-2 border-current border-t-transparent rounded-full" role="status"></span>
+                          <span v-else class="material-symbols-outlined text-sm sm:text-base" style="font-variation-settings:'FILL' 1">add_shopping_cart</span>
+                      </button>
                     </div>
                     </div>
-                </Link>
               </div>
             </div>
 

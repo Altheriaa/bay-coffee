@@ -1,27 +1,45 @@
 <script setup>
-import { Link } from '@inertiajs/vue3';
+import { Link, router } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import AppLayout from '../Layouts/App.vue';
 
 const qty = ref(1);
 
-// Dummy data — will be replaced with props from backend
 const props = defineProps({
   product: Object,
 })
 
-const perks = [
-  { icon: 'local_shipping', label: 'Free Shipping',     sub: 'On orders over Rp 400.000' },
-  { icon: 'timer',          label: 'Roasted to Order',  sub: 'Ships within 48 hours' },
-  { icon: 'undo',           label: 'Easy Returns',      sub: '30-day money-back guarantee' },
-];
+const isAdding = ref(false);
 
-const related = [
-  { name: 'Guatemala Antigua',    weight: '12oz · Medium Roast', price: 'Rp 165.000', icon: 'local_cafe',   slug: 'guatemala-antigua' },
-  { name: 'House Blend – Medium', weight: '16oz · Medium Roast', price: 'Rp 210.000', icon: 'coffee_maker', slug: 'house-blend-medium' },
-  { name: 'Colombian Supremo',    weight: '12oz · Medium Roast', price: 'Rp 170.000', icon: 'local_cafe',   slug: 'colombian-supremo' },
-  { name: 'French Roast Dark',    weight: '16oz · Dark Roast',   price: 'Rp 210.000', icon: 'inventory_2',  slug: 'french-roast-dark' },
-];
+const formatRupiah = (value) => {
+  return 'Rp ' + value.toLocaleString('id-ID');
+};
+
+const addToCart = () => {
+  isAdding.value = true;
+  router.post('/cart', {
+    product_id: props.product.id,
+    qty: qty.value
+  }, {
+    preserveScroll: true,
+    onFinish: () => {
+      isAdding.value = false;
+    }
+  })
+}
+
+// const perks = [
+//   { icon: 'local_shipping', label: 'Free Shipping',     sub: 'On orders over Rp 400.000' },
+//   { icon: 'timer',          label: 'Roasted to Order',  sub: 'Ships within 48 hours' },
+//   { icon: 'undo',           label: 'Easy Returns',      sub: '30-day money-back guarantee' },
+// ];
+
+// const related = [
+//   { name: 'Guatemala Antigua',    weight: '12oz · Medium Roast', price: 'Rp 165.000', icon: 'local_cafe',   slug: 'guatemala-antigua' },
+//   { name: 'House Blend – Medium', weight: '16oz · Medium Roast', price: 'Rp 210.000', icon: 'coffee_maker', slug: 'house-blend-medium' },
+//   { name: 'Colombian Supremo',    weight: '12oz · Medium Roast', price: 'Rp 170.000', icon: 'local_cafe',   slug: 'colombian-supremo' },
+//   { name: 'French Roast Dark',    weight: '16oz · Dark Roast',   price: 'Rp 210.000', icon: 'inventory_2',  slug: 'french-roast-dark' },
+// ];
 </script>
 
 <template>
@@ -91,8 +109,8 @@ const related = [
 
             <!-- Price -->
             <div class="flex items-baseline gap-3 mb-6">
-              <span class="text-2xl sm:text-3xl font-bold text-primary">Rp. {{ product.harga }}</span>
-              <span v-if="product.oldPrice" class="text-base text-on-surface-variant line-through">Rp. {{ product.oldPrice }}</span>
+              <span class="text-2xl sm:text-3xl font-bold text-primary">{{ formatRupiah(product.harga) }}</span>
+              <span v-if="product.oldPrice" class="text-base text-on-surface-variant line-through">{{ formatRupiah(product.oldPrice) }}</span>
             </div>
 
             <!-- Description -->
@@ -131,9 +149,10 @@ const related = [
 
             <!-- Actions -->
             <div class="flex flex-col sm:flex-row gap-3 mb-8">
-              <button class="flex-grow inline-flex items-center justify-center gap-2 bg-secondary hover:bg-secondary/90 text-on-secondary font-semibold px-6 py-3.5 rounded-xl transition-all duration-200 shadow-lg shadow-secondary/20 hover:shadow-xl text-sm sm:text-base">
-                <span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1">shopping_cart</span>
-                Add to Cart
+              <button :disabled="isAdding" @click="addToCart" class="flex-grow inline-flex items-center justify-center gap-2 bg-secondary hover:bg-secondary/90 text-on-secondary font-semibold px-6 py-3.5 rounded-xl transition-all duration-200 shadow-lg shadow-secondary/20 hover:shadow-xl text-sm sm:text-base disabled:opacity-50 min-h-[48px]">
+                <span v-if="isAdding" class="animate-spin inline-block w-5 h-5 border-2 border-current border-t-transparent rounded-full" role="status"></span>
+                <span v-else class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1">shopping_cart</span>
+                {{ isAdding ? 'Adding...' : 'Add to Cart' }}
               </button>
             </div>
           </div>

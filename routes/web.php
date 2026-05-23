@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -24,15 +25,18 @@ Route::get('/', function () {
 Route::get('/shop', [ProductController::class, 'index'])->name('shop');
 Route::get('/shop/{product}', [ProductController::class, 'show'])->name('shop.show');
 
-Route::get('/cart', function () {
-    return Inertia::render('Cart/Index');
-});
-
 Route::middleware('auth')->group(function () {
     Route::get('/transaksi', function () {
         return Inertia::render('Transaction/Index');
     });
 
+    // keranjang
+    Route::get('/cart', [CartController::class, 'index']);
+    Route::post('/cart', [CartController::class, 'store']);
+    Route::patch('/cart/{cartItem}', [CartController::class, 'update']);
+    Route::delete('/cart/{cartItem}', [CartController::class, 'destroy']);
+
+    // profile
     Route::get('/profile', [ProfileController::class, 'index']);
     Route::put('/profile', [ProfileController::class, 'update']);
     Route::patch('/profile/password', [ProfileController::class, 'password']);

@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Orders;
 
 use App\Filament\Resources\Orders\Pages\ManageOrders;
 use App\Models\Order;
+use App\Services\FonnteService;
 use BackedEnum;
 use UnitEnum;
 use Filament\Actions\BulkActionGroup;
@@ -24,6 +25,7 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Section;
 use Filament\Infolists\Components\RepeatableEntry;
+use Illuminate\Support\Facades\Log;
 
 class OrderResource extends Resource
 {
@@ -181,14 +183,30 @@ class OrderResource extends Resource
                     ->icon('heroicon-o-truck')
                     ->requiresConfirmation()
                     ->visible(fn (Order $record) => $record->status === 'processing')
-                    ->action(fn (Order $record) => $record->update(['status' => 'shipped'])),
+                    ->action(function (Order $record) {
+                        $record->update(['status' => 'shipped']);
+                        try {
+                            $wa = new FonnteService();
+                            $wa->notifyOrderShipped($record);
+                        } catch (\Throwable $e) {
+                            Log::warning('[Fonnte] Gagal kirim notifikasi kirim: ' . $e->getMessage());
+                        }
+                    }),
                 Action::make('selesai')
                     ->label('Selesai')
                     ->color('success')
                     ->icon('heroicon-o-check-circle')
                     ->requiresConfirmation()
                     ->visible(fn (Order $record) => $record->status === 'shipped')
-                    ->action(fn (Order $record) => $record->update(['status' => 'completed'])),
+                    ->action(function (Order $record) {
+                        $record->update(['status' => 'completed']);
+                        try {
+                            $wa = new FonnteService();
+                            $wa->notifyOrderCompleted($record);
+                        } catch (\Throwable $e) {
+                            Log::warning('[Fonnte] Gagal kirim notifikasi selesai: ' . $e->getMessage());
+                        }
+                    }),
                 Action::make('batal')
                     ->label('Batalkan')
                     ->color('danger')

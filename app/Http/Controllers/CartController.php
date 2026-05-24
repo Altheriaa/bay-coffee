@@ -13,6 +13,7 @@ use Inertia\Inertia;
 use Midtrans\Config;
 use Midtrans\Snap;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class CartController extends Controller
 {

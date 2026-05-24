@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Midtrans\Config;
 use Midtrans\Notification;
+use App\Services\FonnteService;
+use Illuminate\Support\Facades\Log;
 
 class PaymentNotificationController extends Controller
 {
@@ -85,6 +87,14 @@ class PaymentNotificationController extends Controller
                     if ($item->product) {
                         $item->product->decrement('stok', $item->qty);
                     }
+                }
+
+                try {
+                    $wa = new FonnteService();
+                    $wa->notifyAdminNewOrder($order);
+                    $wa->notifyOrderPaid($order);
+                } catch (\Throwable $e) {
+                    Log::warning('[Fonnte] Gagal kirim notifikasi pembayaran ke admin (handle): ' . $e->getMessage());
                 }
             }
 
@@ -185,6 +195,14 @@ class PaymentNotificationController extends Controller
                     }
                 }
 
+                try {
+                    $wa = new FonnteService();
+                    $wa->notifyAdminNewOrder($order);
+                    $wa->notifyOrderPaid($order);
+                } catch (\Throwable $e) {
+                    Log::warning('[Fonnte] Gagal kirim notifikasi (success): ' . $e->getMessage());
+                }
+
                 $order->update([
                     'status' => 'processing',
                     'status_payment' => 'paid',
@@ -203,15 +221,15 @@ class PaymentNotificationController extends Controller
                 );
 
                 DB::commit();
-                \Log::info('Order updated to PAID successfully!');
+                Log::info('Order updated to PAID successfully!');
                 return response()->json(['message' => 'Payment synced successfully']);
             } catch (\Throwable $th) {
                 DB::rollBack();
-                \Log::error('DB update failed: ' . $th->getMessage());
+                Log::error('DB update failed: ' . $th->getMessage());
                 return response()->json(['message' => 'DB error: ' . $th->getMessage()], 500);
             }
         } else {
-            \Log::info('Transaction not yet settled', ['status' => $transactionStatus]);
+            Log::info('Transaction not yet settled', ['status' => $transactionStatus]);
             return response()->json(['message' => 'Transaction status: ' . $transactionStatus]);
         }
     }

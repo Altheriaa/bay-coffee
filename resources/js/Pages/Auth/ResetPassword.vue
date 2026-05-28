@@ -41,22 +41,19 @@
       <div class="w-full max-w-md mx-auto">
         <!-- Header -->
         <div class="mb-8">
-          <p class="text-xs font-bold uppercase tracking-widest text-secondary mb-2">Welcome back</p>
-          <h1 class="text-2xl sm:text-4xl font-bold text-primary mb-2">Masuk ke Akun</h1>
-          <p class="text-xs text-on-surface-variant">Belum punya akun?
-            <Link href="/register" class="font-semibold text-secondary hover:underline">Daftar di sini</Link>
-          </p>
+          <h1 class="text-2xl sm:text-4xl font-bold text-primary mb-2">Reset Password</h1>
+          <p class="text-xs font-bold uppercase tracking-widest text-secondary mb-2">Masukkan password baru untuk akun Anda</p>
         </div>
 
         <!-- Error messages -->
-        <div v-if="form.errors.email || form.errors.password"  class="rounded-lg bg-red-50 border border-red-200 p-3 text-sm text-red-700 text-center mb-5">
-          {{ form.errors.email || form.errors.password }}
+        <div v-if="form.errors.email" class="rounded-lg bg-red-50 border border-red-200 p-3 text-sm text-red-700 text-center mb-5">
+          {{ form.errors.email }}
         </div>
 
-        <!-- Form (No backend logic) -->
+        <!-- Form -->
         <form @submit.prevent="submit" class="space-y-5">
 
-          <!-- Email -->
+          <!-- Email (readonly) -->
           <div>
             <label for="email" class="block text-sm font-semibold text-primary mb-1.5">Email</label>
             <div class="relative">
@@ -64,26 +61,22 @@
                 id="email"
                 v-model="form.email"
                 type="email"
-                placeholder="nama@email.com"
-                autocomplete="email"
-                class="w-full bg-surface border border-outline-variant rounded-xl pl-4 py-3 text-sm text-on-surface placeholder-outline focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all duration-200"
+                readonly
+                class="w-full bg-surface/50 border border-outline-variant rounded-xl pl-4 py-3 text-sm text-on-surface/70 placeholder-outline focus:outline-none cursor-not-allowed"
               />
             </div>
           </div>
 
           <!-- Password -->
           <div>
-            <div class="flex justify-between items-center mb-1.5">
-              <label for="password" class="block text-sm font-semibold text-primary">Password</label>
-              <Link href="/forgot-password" class="text-xs font-semibold text-secondary hover:underline">Lupa password?</Link>
-            </div>
+            <label for="password" class="block text-sm font-semibold text-primary mb-1.5">Password Baru</label>
             <div class="relative">
               <input
                 id="password"
                 v-model="form.password"
                 :type="showPassword ? 'text' : 'password'"
-                placeholder="Masukkan password"
-                autocomplete="current-password"
+                placeholder="Minimal 8 karakter"
+                autocomplete="new-password"
                 class="w-full bg-surface border border-outline-variant rounded-xl pl-4 py-3 text-sm text-on-surface placeholder-outline focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all duration-200"
               />
               <button type="button" @click="showPassword = !showPassword"
@@ -91,25 +84,37 @@
                 <span class="material-symbols-outlined text-base">{{ showPassword ? 'visibility_off' : 'visibility' }}</span>
               </button>
             </div>
+            <p v-if="form.errors.password" class="mt-1 text-xs text-red-500">{{ form.errors.password }}</p>
           </div>
 
-          <!-- Remember me -->
-          <div class="flex items-center gap-2.5">
-            <input id="remember" v-model="remember" type="checkbox"
-              class="w-4 h-4 rounded border-outline-variant text-secondary focus:ring-secondary/30 cursor-pointer"
-            />
-            <label for="remember" class="text-sm text-on-surface-variant cursor-pointer select-none">Ingat saya</label>
+          <!-- Confirm Password -->
+          <div>
+            <label for="password_confirmation" class="block text-sm font-semibold text-primary mb-1.5">Konfirmasi Password</label>
+            <div class="relative">
+              <input
+                id="password_confirmation"
+                v-model="form.password_confirmation"
+                :type="showConfirm ? 'text' : 'password'"
+                placeholder="Ulangi password baru"
+                autocomplete="new-password"
+                class="w-full bg-surface border border-outline-variant rounded-xl pl-4 py-3 text-sm text-on-surface placeholder-outline focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all duration-200"
+              />
+              <button type="button" @click="showConfirm = !showConfirm"
+                class="absolute right-3 top-6.5 -translate-y-1/2 text-on-surface-variant hover:text-primary transition-colors duration-200">
+                <span class="material-symbols-outlined text-base">{{ showConfirm ? 'visibility_off' : 'visibility' }}</span>
+              </button>
+            </div>
           </div>
 
           <!-- Submit -->
           <button
             type="submit"
             class="w-full flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 text-on-primary font-semibold py-3.5 rounded-xl shadow-md shadow-primary/20 hover:shadow-lg text-sm"
+            :disabled="form.processing"
           >
-            <span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1">login</span>
-            Masuk
+            <span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1">lock_reset</span>
+            {{ form.processing ? 'Menyimpan...' : 'Simpan Password Baru' }}
           </button>
-
         </form>
 
         <!-- Divider -->
@@ -119,11 +124,12 @@
           <div class="flex-grow h-px bg-outline-variant/40"></div>
         </div>
 
-        <!-- Register link -->
+        <!-- Login link -->
         <p class="text-center text-sm text-on-surface-variant">
-          Belum punya akun?
-          <a href="/register" class="font-semibold text-secondary hover:underline">Buat akun baru</a>
+          Sudah ingat password?
+          <Link href="/login" class="font-semibold text-secondary hover:underline">Login</Link>
         </p>
+
       </div>
     </div>
 
@@ -131,21 +137,29 @@
 </template>
 
 <script setup>
-import { Link, usePage, useForm } from '@inertiajs/vue3';
+import { Link, useForm } from '@inertiajs/vue3';
 import { ref } from 'vue';
 
-const page = usePage();
-
-const showPassword = ref(false);
-
-const form = useForm({
-  email: '',
-  password: '',
-  remember: false,
+const props = defineProps({
+    token: String,
+    email: String,
 });
 
-function submit() {
-  form.post('/login', {
-  });
-}
+const showPassword = ref(false);
+const showConfirm = ref(false);
+
+const form = useForm({
+    token: props.token,
+    email: props.email ?? '',
+    password: '',
+    password_confirmation: '',
+});
+
+const submit = () => {
+    form.post('/reset-password', {
+        onFinish: () => {
+            form.reset('password', 'password_confirmation');
+        },
+    });
+};
 </script>

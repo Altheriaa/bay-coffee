@@ -1,30 +1,33 @@
 <?php
 
+use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LaporanKeuanganController;
+use App\Http\Controllers\PaymentNotificationController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RiwayatTransaksiController;
-use App\Http\Controllers\PaymentNotificationController;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ShippingController;
-use App\Http\Controllers\LaporanKeuanganController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+
+
 
 // Route Login
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout']);
 
-// // forgot password
-// Route::get('/forgot-password', [ForgotPasswordController::class, 'index'])->name('password.request');
-// Route::post('/forgot-password', [ForgotPasswordController::class, 'send'])->name('password.email');
-
-// // reset password
-// Route::get('/reset-password/{token}', [ResetPasswordController::class, 'index'])->name('password.reset');
-// Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
+// forgot password
+Route::get('/forgot-password', [ForgotPasswordController::class, 'index'])->name('password.request');
+Route::post('/forgot-password', [ForgotPasswordController::class, 'send'])->name('password.email');
+// reset password
+Route::get('/reset-password/{token}', [ResetPasswordController::class, 'index'])->name('password.reset');
+Route::post('/reset-password', [ResetPasswordController::class, 'reset'])->name('password.update');
 
 Route::get('/register', [RegisterController::class, 'index']);
 Route::post('/register', [RegisterController::class, 'store']);

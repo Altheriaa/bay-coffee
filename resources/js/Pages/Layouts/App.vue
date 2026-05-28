@@ -12,8 +12,8 @@
 
         <!-- Desktop Nav -->
         <nav class="hidden md:flex items-center gap-6">
-          <Link :class="page.url === '/' ? 'text-sm font-semibold text-secondary relative pb-1 after:content-[\'\'] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-secondary after:transition-all after:duration-300' : 'text-sm font-semibold text-on-surface-variant hover:text-secondary relative pb-1 after:content-[\'\'] after:absolute after:bottom-0 after:left-0 after:w-0 hover:after:w-full after:h-[2px] after:bg-secondary after:transition-all after:duration-300 cursor-pointer'" href="/">Home</Link>
-          <Link :class="page.url.startsWith('/shop') ? 'text-sm font-semibold text-secondary relative pb-1 after:content-[\'\'] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-secondary after:transition-all after:duration-300' : 'text-sm font-semibold text-on-surface-variant hover:text-secondary relative pb-1 after:content-[\'\'] after:absolute after:bottom-0 after:left-0 after:w-0 hover:after:w-full after:h-[2px] after:bg-secondary after:transition-all after:duration-300 cursor-pointer'" href="/shop">Shop</Link>
+          <Link :class="page.url === '/' ? 'text-sm font-semibold text-secondary relative pb-1 after:content-[\'\'] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-secondary after:transition-all after:duration-300' : 'text-sm font-semibold text-on-surface-variant hover:text-secondary relative pb-1 after:content-[\'\'] after:absolute after:bottom-0 after:left-0 after:w-0 hover:after:w-full after:h-[2px] after:bg-secondary after:transition-all after:duration-300 cursor-pointer'" href="/">Beranda</Link>
+          <Link :class="page.url.startsWith('/shop') ? 'text-sm font-semibold text-secondary relative pb-1 after:content-[\'\'] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-secondary after:transition-all after:duration-300' : 'text-sm font-semibold text-on-surface-variant hover:text-secondary relative pb-1 after:content-[\'\'] after:absolute after:bottom-0 after:left-0 after:w-0 hover:after:w-full after:h-[2px] after:bg-secondary after:transition-all after:duration-300 cursor-pointer'" href="/shop">Belanja</Link>
           <Link :class="page.url.startsWith('/transaksi') ? 'text-sm font-semibold text-secondary relative pb-1 after:content-[\'\'] after:absolute after:bottom-0 after:left-0 after:w-full after:h-[2px] after:bg-secondary after:transition-all after:duration-300' : 'text-sm font-semibold text-on-surface-variant hover:text-secondary relative pb-1 after:content-[\'\'] after:absolute after:bottom-0 after:left-0 after:w-0 hover:after:w-full after:h-[2px] after:bg-secondary after:transition-all after:duration-300 cursor-pointer'" href="/transaksi">Transaksi</Link>
         </nav>
 
@@ -129,8 +129,8 @@
             </p>
             <!-- Navigation links -->
             <div class="flex flex-wrap items-center gap-x-6 gap-y-2">
-              <Link href="/" class="text-sm font-semibold text-on-primary/70 hover:text-on-primary transition-colors duration-200">Home</Link>
-              <Link href="/shop" class="text-sm font-semibold text-on-primary/70 hover:text-on-primary transition-colors duration-200">Shop</Link>
+              <Link href="/" class="text-sm font-semibold text-on-primary/70 hover:text-on-primary transition-colors duration-200">Beranda</Link>
+              <Link href="/shop" class="text-sm font-semibold text-on-primary/70 hover:text-on-primary transition-colors duration-200">Belanja</Link>
               <a href="#" class="text-sm font-semibold text-on-primary/70 hover:text-on-primary transition-colors duration-200">Our Story</a>
               <a href="#" class="text-sm font-semibold text-on-primary/70 hover:text-on-primary transition-colors duration-200">Contact</a>
             </div>
@@ -253,8 +253,8 @@ onUnmounted(() => {
 });
 
 const navLinks = [
-  { label: 'Home', href: '/' },
-  { label: 'Shop', href: '/shop' },
+  { label: 'Beranda', href: '/' },
+  { label: 'Belanja', href: '/shop' },
   { label: 'Transaksi', href: '/transaksi' },
   { label: 'Profil Saya', href: '/profile' },
 ];

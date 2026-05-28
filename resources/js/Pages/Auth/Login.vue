@@ -41,7 +41,7 @@
       <div class="w-full max-w-md mx-auto">
         <!-- Header -->
         <div class="mb-8">
-          <p class="text-xs font-bold uppercase tracking-widest text-secondary mb-2">Welcome back</p>
+          <p class="text-xs font-bold uppercase tracking-widest text-secondary mb-2">Selamat Datang Kembali</p>
           <h1 class="text-2xl sm:text-4xl font-bold text-primary mb-2">Masuk ke Akun</h1>
           <p class="text-xs text-on-surface-variant">Belum punya akun?
             <Link href="/register" class="font-semibold text-secondary hover:underline">Daftar di sini</Link>

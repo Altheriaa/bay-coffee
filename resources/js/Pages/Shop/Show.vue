@@ -49,9 +49,9 @@ const addToCart = () => {
     <section class="bg-surface border-b border-outline-variant/20">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <nav class="flex items-center gap-2 text-xs sm:text-sm text-on-surface-variant">
-          <Link href="/" class="hover:text-secondary transition-colors duration-200">Home</Link>
+          <Link href="/" class="hover:text-secondary transition-colors duration-200">Beranda</Link>
           <span class="material-symbols-outlined text-xs">chevron_right</span>
-          <Link href="/shop" class="hover:text-secondary transition-colors duration-200">Shop</Link>
+          <Link href="/shop" class="hover:text-secondary transition-colors duration-200">Belanja</Link>
           <span class="material-symbols-outlined text-xs">chevron_right</span>
           <span class="text-primary font-medium">{{ product.nama_product }}</span>
         </nav>
@@ -104,7 +104,7 @@ const addToCart = () => {
                   class="material-symbols-outlined text-secondary text-sm"
                   style="font-variation-settings:'FILL' 1">star</span>
               </div>
-              <span class="text-sm text-on-surface-variant">{{ product.rating }} · {{ product.reviews }} reviews</span>
+              <span class="text-sm text-on-surface-variant">{{ product.rating }} · {{ product.reviews }} ulasan</span>
             </div>
 
             <!-- Price -->
@@ -133,7 +133,7 @@ const addToCart = () => {
 
             <!-- Quantity -->
             <div class="mb-6">
-              <label class="text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2 block">Quantity</label>
+              <label class="text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2 block">Kuantitas</label>
               <div class="inline-flex items-center border border-outline-variant/30 rounded-xl overflow-hidden">
                 <button @click="qty > 1 && qty--"
                   class="w-10 h-10 flex items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors duration-200">
@@ -152,7 +152,7 @@ const addToCart = () => {
               <button :disabled="isAdding" @click="addToCart" class="flex-grow inline-flex items-center justify-center gap-2 bg-secondary hover:bg-secondary/90 text-on-secondary font-semibold px-6 py-3.5 rounded-xl transition-all duration-200 shadow-lg shadow-secondary/20 hover:shadow-xl text-sm sm:text-base disabled:opacity-50 min-h-[48px]">
                 <span v-if="isAdding" class="animate-spin inline-block w-5 h-5 border-2 border-current border-t-transparent rounded-full" role="status"></span>
                 <span v-else class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1">shopping_cart</span>
-                {{ isAdding ? 'Adding...' : 'Add to Cart' }}
+                {{ isAdding ? 'Menambahkan...' : 'Tambah ke Keranjang' }}
               </button>
             </div>
           </div>

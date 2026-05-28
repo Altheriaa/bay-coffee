@@ -161,6 +161,8 @@ class CartController extends Controller
                     'qty' => $item->qty,
                     'subtotal' => $item->qty * $item->product->harga
                 ]);
+
+                $item->product->decrement('stok', $item->qty);
             }
 
             $params = [

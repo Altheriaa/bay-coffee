@@ -7,7 +7,9 @@ use App\Models\Customer;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\RateLimiter;
 use Inertia\Inertia;
+use Illuminate\Support\Str;
 
 class LoginController extends Controller
 {
@@ -22,6 +24,13 @@ class LoginController extends Controller
             'password' => 'required',
         ]);
 
+        $throttleKey = Str::lower($request->input('email')).'|'.$request->ip();
+
+        if (RateLimiter::tooManyAttempts($throttleKey, 5)) {
+            $seconds = RateLimiter::availableIn($throttleKey);
+            return back()->withErrors(['email' => "Terlalu banyak percobaan login. Silakan coba lagi dalam {$seconds} detik."]);
+        }
+
         $credentials = $request->only('email', 'password');
 
         if (! $credentials) {
@@ -31,6 +40,7 @@ class LoginController extends Controller
         }
 
         if (Auth::attempt($credentials)) {
+            RateLimiter::clear($throttleKey);
             $request->session()->regenerate();
 
             if (Auth::user()->isAdmin()) {
@@ -41,6 +51,7 @@ class LoginController extends Controller
             }
         }
 
+        RateLimiter::hit($throttleKey, 60);
         return back()->withErrors(['email' => 'Email atau Password salah']);
     }
 

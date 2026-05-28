@@ -82,14 +82,16 @@ class PaymentNotificationController extends Controller
 
         DB::beginTransaction();
         try {
-            // Deduct stock if payment transitions to PAID
-            if ($paymentStatus === 'paid' && $order->status_payment !== 'paid') {
+            // Restore stock if payment transitions to failed/expired/cancelled
+            if (in_array($paymentStatus, ['failed', 'expired', 'cancelled']) && $order->status_payment === 'pending') {
                 foreach ($order->orderItems as $item) {
                     if ($item->product) {
-                        $item->product->decrement('stok', $item->qty);
+                        $item->product->increment('stok', $item->qty);
                     }
                 }
+            }
 
+            if ($paymentStatus === 'paid' && $order->status_payment !== 'paid') {
                 try {
                     $wa = new FonnteService;
                     $wa->notifyAdminNewOrder($order);
@@ -173,16 +175,7 @@ class PaymentNotificationController extends Controller
         } catch (\Throwable $th) {
             Log::warning('Midtrans API status check failed: '.$th->getMessage());
 
-            // Fallback: use values from Snap callback result sent by frontend
-            $transactionStatus = $request->input('transaction_status');
-            $paymentType = $request->input('payment_type');
-            $transactionId = $request->input('transaction_id');
-            $statusPayload = json_encode($request->all());
-
-            \Log::info('Using Snap callback fallback', [
-                'transaction_status' => $transactionStatus,
-                'payment_type' => $paymentType,
-            ]);
+            return response()->json(['message' => 'Could not verify transaction with Midtrans.'], 422);
         }
 
         if (! $transactionStatus) {
@@ -194,12 +187,8 @@ class PaymentNotificationController extends Controller
         if ($transactionStatus == 'settlement' || $transactionStatus == 'capture') {
             DB::beginTransaction();
             try {
-                // Deduct stock if payment transitions to PAID
-                foreach ($order->orderItems as $item) {
-                    if ($item->product) {
-                        $item->product->decrement('stok', $item->qty);
-                    }
-                }
+                // Stock is already deducted at checkout.
+
 
                 try {
                     $wa = new FonnteService;

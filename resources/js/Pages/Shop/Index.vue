@@ -3,8 +3,8 @@ import { Link, router } from '@inertiajs/vue3';
 import { ref } from 'vue';
 import AppLayout from '../Layouts/App.vue';
 
-const categories = ['Single Origin', 'Blends', 'Decaf', 'Flavoured'];
-const roastLevels = ['Light', 'Medium', 'Medium-Dark', 'Dark'];
+const categories = ['Asal Tunggal', 'Racikan', 'Tanpa Kafein', 'Beraroma'];
+const roastLevels = ['Ringan', 'Sedang', 'Sedang-Gelap', 'Gelap'];
 const priceRanges = ['Di bawah Rp 150.000', 'Rp 150.000 – Rp 200.000', 'Rp 200.000 – Rp 300.000', 'Di atas Rp 300.000'];
 
 const props = defineProps({
@@ -41,10 +41,10 @@ const addToCart = (productId) => {
         <nav class="flex items-center gap-2 text-xs sm:text-sm text-on-primary/50 mb-4">
           <Link href="/" class="hover:text-on-primary transition-colors duration-200">Home</Link>
           <span class="material-symbols-outlined text-xs">chevron_right</span>
-          <span class="text-on-primary font-medium">Shop</span>
+          <span class="text-on-primary font-medium">Belanja</span>
         </nav>
-        <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-on-primary">Our Coffee</h1>
-        <p class="text-sm sm:text-base text-on-primary/65 mt-2 max-w-xl">Browse our curated selection of freshly roasted, single-origin and blended coffees.</p>
+        <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-on-primary">Kopi Kami</h1>
+        <p class="text-sm sm:text-base text-on-primary/65 mt-2 max-w-xl">Jelajahi pilihan kopi yang baru disangrai, single-origin, dan racikan pilihan kami.</p>
       </div>
     </section>
 
@@ -58,12 +58,12 @@ const addToCart = (productId) => {
             <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/20 p-5 sm:p-6 sticky top-28">
               <h3 class="text-sm font-bold text-primary mb-5 flex items-center gap-2">
                 <span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1">tune</span>
-                Filters
+                Filter
               </h3>
 
               <!-- Category -->
               <div class="mb-6">
-                <h4 class="text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-3">Category</h4>
+                <h4 class="text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-3">Kategori</h4>
                 <div class="flex flex-col gap-2">
                   <label v-for="cat in categories" :key="cat" class="flex items-center gap-2.5 cursor-pointer group">
                     <input type="checkbox" class="w-4 h-4 rounded border-outline-variant text-secondary accent-secondary" />
@@ -74,7 +74,7 @@ const addToCart = (productId) => {
 
               <!-- Roast Level -->
               <div class="mb-6">
-                <h4 class="text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-3">Roast Level</h4>
+                <h4 class="text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-3">Tingkat Sangrai</h4>
                 <div class="flex flex-col gap-2">
                   <label v-for="roast in roastLevels" :key="roast" class="flex items-center gap-2.5 cursor-pointer group">
                     <input type="checkbox" class="w-4 h-4 rounded border-outline-variant text-secondary accent-secondary" />
@@ -85,7 +85,7 @@ const addToCart = (productId) => {
 
               <!-- Price Range -->
               <div>
-                <h4 class="text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-3">Price Range</h4>
+                <h4 class="text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-3">Rentang Harga</h4>
                 <div class="flex flex-col gap-2">
                   <label v-for="range in priceRanges" :key="range" class="flex items-center gap-2.5 cursor-pointer group">
                     <input type="radio" name="price" class="w-4 h-4 border-outline-variant text-secondary accent-secondary" />
@@ -101,14 +101,14 @@ const addToCart = (productId) => {
 
             <!-- Toolbar -->
             <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-6">
-              <p class="text-sm text-on-surface-variant">Showing <span class="font-semibold text-primary">{{ products.length }}</span> products</p>
+              <p class="text-sm text-on-surface-variant">Menampilkan <span class="font-semibold text-primary">{{ products.length }}</span> produk</p>
               <div class="flex items-center gap-3">
                 <select class="text-sm bg-surface-container-lowest border border-outline-variant/30 rounded-xl px-3 py-2 text-on-surface-variant focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all duration-200 cursor-pointer">
-                  <option>Sort by: Featured</option>
-                  <option>Price: Low to High</option>
-                  <option>Price: High to Low</option>
-                  <option>Rating</option>
-                  <option>Newest</option>
+                  <option>Urutkan: Unggulan</option>
+                  <option>Harga: Rendah ke Tinggi</option>
+                  <option>Harga: Tinggi ke Rendah</option>
+                  <option>Penilaian</option>
+                  <option>Terbaru</option>
                 </select>
               </div>
             </div>

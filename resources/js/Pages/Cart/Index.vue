@@ -169,12 +169,12 @@ const checkout = async () => {
     <section class="bg-primary py-10 sm:py-14">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <nav class="flex items-center gap-2 text-xs sm:text-sm text-on-primary/50 mb-4">
-          <Link href="/" class="hover:text-on-primary transition-colors duration-200">Home</Link>
+          <Link href="/" class="hover:text-on-primary transition-colors duration-200">Beranda</Link>
           <span class="material-symbols-outlined text-xs">chevron_right</span>
           <span class="text-on-primary font-medium">Cart</span>
         </nav>
-        <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-on-primary">Shopping Cart</h1>
-        <p class="text-sm text-on-primary/60 mt-1">{{ carts.length }} items in your cart</p>
+        <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-on-primary">Keranjang Belanja</h1>
+        <p class="text-sm text-on-primary/60 mt-1">{{ carts.length }} item di keranjang Anda</p>
       </div>
     </section>
 
@@ -187,12 +187,12 @@ const checkout = async () => {
           <div class="w-20 h-20 mx-auto mb-5 rounded-full bg-surface-container flex items-center justify-center">
             <span class="material-symbols-outlined text-outline/40 text-4xl" style="font-variation-settings:'FILL' 0">shopping_cart</span>
           </div>
-          <h2 class="text-xl font-bold text-primary mb-2">Your cart is empty</h2>
-          <p class="text-sm text-on-surface-variant mb-6">Looks like you haven't added anything to your cart yet.</p>
+          <h2 class="text-xl font-bold text-primary mb-2">Keranjang Anda kosong</h2>
+          <p class="text-sm text-on-surface-variant mb-6">Sepertinya Anda belum menambahkan apa pun ke keranjang Anda.</p>
           <Link href="/shop"
             class="inline-flex items-center gap-2 bg-secondary hover:bg-secondary/90 text-on-secondary font-semibold px-6 py-3 rounded-xl transition-all duration-200 text-sm">
             <span class="material-symbols-outlined text-base">storefront</span>
-            Continue Shopping
+            Lanjut Belanja
           </Link>
         </div>
 
@@ -203,9 +203,9 @@ const checkout = async () => {
           <div class="flex-grow">
             <!-- Header (desktop) -->
             <div class="hidden sm:grid grid-cols-12 gap-4 px-4 pb-3 border-b border-outline-variant/20 text-xs font-bold uppercase tracking-widest text-on-surface-variant">
-              <div class="col-span-6">Product</div>
-              <div class="col-span-2 text-center">Price</div>
-              <div class="col-span-2 text-center">Quantity</div>
+              <div class="col-span-6">Produk</div>
+              <div class="col-span-2 text-center">Harga</div>
+              <div class="col-span-2 text-center">Kuantitas</div>
               <div class="col-span-2 text-right">Subtotal</div>
             </div>
 
@@ -229,14 +229,14 @@ const checkout = async () => {
                     <button @click="removeItem(item.id)"
                       class="mt-2 inline-flex items-center gap-1 text-xs text-error hover:text-error/80 font-medium transition-colors duration-200">
                       <span class="material-symbols-outlined text-xs">delete</span>
-                      Remove
+                      Hapus
                     </button>
                   </div>
                 </div>
 
                 <!-- Price -->
                 <div class="sm:col-span-2 text-sm font-semibold text-on-surface-variant sm:text-center">
-                  <span class="sm:hidden text-xs text-on-surface-variant font-normal mr-1">Price:</span>
+                  <span class="sm:hidden text-xs text-on-surface-variant font-normal mr-1">Harga:</span>
                   {{ formatRupiah(item.product.harga) }}
                 </div>
 
@@ -268,7 +268,7 @@ const checkout = async () => {
               <Link href="/shop"
                 class="inline-flex items-center gap-2 text-sm font-semibold text-secondary hover:text-on-secondary-container transition-colors duration-200">
                 <span class="material-symbols-outlined text-base">arrow_back</span>
-                Continue Shopping
+                Lanjut Belanja
               </Link>
             </div>
           </div>
@@ -278,7 +278,7 @@ const checkout = async () => {
             <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/20 p-5 sm:p-6 sticky top-28">
               <h3 class="text-base font-bold text-primary mb-5 flex items-center gap-2">
                 <span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1">receipt_long</span>
-                Order Summary
+                Ringkasan Pesanan
               </h3>
 
               <div class="space-y-3 mb-5 pb-5 border-b border-outline-variant/20">
@@ -287,14 +287,14 @@ const checkout = async () => {
                   <span class="font-semibold text-primary">{{ formatRupiah(subtotal) }}</span>
                 </div>
                 <div class="flex justify-between text-sm">
-                  <span class="text-on-surface-variant">Shipping</span>
+                  <span class="text-on-surface-variant">Pengiriman</span>
                   <span class="font-semibold text-primary" :class="subtotal >= 400000 ? 'text-secondary' : ''">
                     {{ subtotal >= 400000 ? 'Gratis' : formatRupiah(30000) }}
                   </span>
                 </div>
                 <div v-if="subtotal >= 400000" class="flex items-center gap-1.5 text-secondary text-xs">
                   <span class="material-symbols-outlined text-xs" style="font-variation-settings:'FILL' 1">check_circle</span>
-                  You qualify for free shipping!
+                  Anda mendapatkan gratis ongkir!
                 </div>
               </div>
 
@@ -308,7 +308,7 @@ const checkout = async () => {
               <button @click="checkout" :disabled="loading" class="w-full inline-flex items-center justify-center gap-2 bg-secondary hover:bg-secondary/90 text-on-secondary font-semibold px-6 py-3.5 rounded-xl transition-all duration-200 shadow-lg shadow-secondary/20 hover:shadow-xl text-sm sm:text-base mb-3 disabled:opacity-50 disabled:cursor-not-allowed">
                 <span v-if="loading" class="animate-spin rounded-full h-5 w-5 border-2 border-on-secondary border-t-transparent"></span>
                 <span v-else class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1">lock</span>
-                {{ loading ? 'Processing...' : 'Proceed to Checkout' }}
+                {{ loading ? 'Memproses...' : 'Lanjut ke Pembayaran' }}
               </button>
             </div>
           </div>

@@ -11,10 +11,10 @@ defineProps({
 });
 
 const badges = [
-  { icon: 'local_shipping',    label: 'Free Shipping',          sub: 'On orders over Rp 400.000'  },
-  { icon: 'timer',             label: 'Roasted Fresh',          sub: 'Ships within 48 hrs' },
-  { icon: 'eco',               label: 'Sustainably Sourced',    sub: 'Direct trade farms'  },
-  { icon: 'workspace_premium', label: 'Satisfaction Guarantee', sub: 'Or full refund'      },
+  { icon: 'local_shipping',    label: 'Gratis Ongkir',          sub: 'Untuk pesanan di atas Rp 400.000'  },
+  { icon: 'timer',             label: 'Baru Disangrai',          sub: 'Dikirim dalam 48 jam' },
+  { icon: 'eco',               label: 'Sumber Berkelanjutan',    sub: 'Dari petani langsung'  },
+  { icon: 'workspace_premium', label: 'Garansi Kepuasan', sub: 'Atau uang kembali'      },
 ];
 
 const collections = [
@@ -39,10 +39,10 @@ const collections = [
 ];
 
 const stats = [
-  { value: '12+',  label: 'Countries sourced'  },
-  { value: '50k+', label: 'Happy customers'    },
-  { value: '48hr', label: 'From roast to door' },
-  { value: '100%', label: 'Traceable origins'  },
+  { value: '12+',  label: 'Negara asal'  },
+  { value: '50k+', label: 'Pelanggan puas'    },
+  { value: '48hr', label: 'Dari panggangan ke rumah' },
+  { value: '100%', label: 'Asal usul terpercaya'  },
 ];
 
 const reviews = [
@@ -71,36 +71,36 @@ const reviews = [
           <!-- Badge -->
           <div class="inline-flex items-center gap-2 bg-white/15 backdrop-blur-sm border border-white/25 rounded-full px-3 py-1.5 mb-6 sm:mb-8">
             <span class="w-2 h-2 bg-secondary rounded-full animate-pulse flex-shrink-0"></span>
-            <span class="text-[10px] sm:text-xs font-semibold text-on-primary tracking-widest uppercase">New Harvest Available</span>
+            <span class="text-[10px] sm:text-xs font-bold text-on-primary tracking-widest uppercase">PANEN BARU TERSEDIA</span>
           </div>
 
           <!-- Heading -->
           <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-on-primary leading-[1.12] mb-5 sm:mb-6">
-            Freshly Roasted.<br/>
-            <span class="text-primary-fixed-dim">Delivered to Your Door.</span>
+            Baru Dipanggang.<br/>
+            <span class="text-primary-fixed-dim">Dikirim ke Pintu Anda.</span>
           </h1>
 
           <!-- Subtitle -->
           <p class="text-sm sm:text-base lg:text-lg text-on-primary/75 mb-8 sm:mb-10 leading-relaxed">
-            Discover your perfect cup with our artisanal, small-batch roasts — sourced from sustainable farms and delivered within 48 hours of roasting.
+            Temukan secangkir kopi sempurna dengan sangraian artisanal kami — bersumber dari perkebunan berkelanjutan dan dikirim dalam waktu 48 jam setelah dipanggang.
           </p>
 
           <!-- CTA Buttons -->
           <div class="flex flex-col sm:flex-row gap-3">
             <Link href="/shop" class="inline-flex items-center justify-center gap-2 bg-secondary hover:bg-secondary/90 text-on-secondary font-semibold px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl transition-all duration-200 shadow-lg shadow-primary/40 hover:shadow-xl hover:-translate-y-0.5 text-sm sm:text-base w-full sm:w-auto">
               <span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 1">shopping_bag</span>
-              Shop Now
+              Belanja Sekarang
             </Link>
             <button class="inline-flex items-center justify-center gap-2 bg-white/15 hover:bg-white/25 backdrop-blur-sm text-on-primary font-semibold px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl border border-white/30 transition-all duration-200 text-sm sm:text-base w-full sm:w-auto">
               <span class="material-symbols-outlined text-base" style="font-variation-settings:'FILL' 0">play_circle</span>
-              Our Story
+              Cerita Kami
             </button>
           </div>
         </div>
       </div>
 
       <div class="hidden sm:flex absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center gap-1 text-on-primary/40 animate-bounce">
-        <span class="text-[10px] tracking-widest uppercase font-medium">Scroll</span>
+        <span class="text-[10px] tracking-widest uppercase font-medium">GULIR</span>
         <span class="material-symbols-outlined text-sm">keyboard_arrow_down</span>
       </div>
     </section>
@@ -131,11 +131,11 @@ const reviews = [
 
         <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-8 sm:mb-12">
           <div>
-            <p class="text-[11px] sm:text-xs font-bold uppercase tracking-widest text-secondary mb-1.5">Our Selection</p>
-            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-primary">Featured Collections</h2>
+            <p class="text-[11px] sm:text-xs font-bold uppercase tracking-widest text-secondary mb-1.5">Pilihan Kami</p>
+            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-primary">Koleksi Pilihan</h2>
           </div>
           <a href="#" class="inline-flex items-center gap-1.5 text-sm font-semibold text-secondary hover:text-on-secondary-container transition-colors duration-200 self-start sm:self-auto">
-            View all
+            Lihat semua
             <span class="material-symbols-outlined text-base">arrow_forward</span>
           </a>
         </div>
@@ -155,7 +155,7 @@ const reviews = [
               <h3 class="text-lg sm:text-xl font-bold text-on-primary">{{ col.name }}</h3>
               <p class="text-xs sm:text-sm text-on-primary/70 mt-1 line-clamp-2">{{ col.desc }}</p>
               <button class="mt-3 sm:mt-4 inline-flex items-center gap-2 bg-white/20 hover:bg-white/35 backdrop-blur-sm text-on-primary text-xs sm:text-sm font-semibold px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl border border-white/30 transition-all duration-200 sm:translate-y-2 sm:opacity-0 sm:group-hover:translate-y-0 sm:group-hover:opacity-100">
-                Explore
+                Jelajahi
                 <span class="material-symbols-outlined text-sm">arrow_forward</span>
               </button>
             </div>
@@ -175,15 +175,15 @@ const reviews = [
 
           <div class="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 items-center p-7 sm:p-10 lg:p-16">
             <div>
-              <p class="text-[11px] sm:text-xs font-bold uppercase tracking-widest text-secondary mb-3">Why Choose Us</p>
+              <p class="text-[11px] sm:text-xs font-bold uppercase tracking-widest text-secondary mb-3">Mengapa Memilih Kami</p>
               <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-on-primary mb-4 sm:mb-5 leading-tight">
-                From Farm to Cup —<br/>Uncompromised Quality
+                Dari Kebun ke Cangkir —<br/>Kualitas Tanpa Kompromi
               </h2>
               <p class="text-on-primary/65 text-sm sm:text-base leading-relaxed mb-6 sm:mb-8">
-                We partner directly with farmers across Ethiopia, Colombia, Guatemala, and beyond. Every bean is hand-selected, ethically sourced, and roasted in small batches to ensure the freshest possible flavour profile.
+                Kami bermitra langsung dengan petani kopi. Setiap biji kopi dipilih langsung, bersumber secara etis, dan disangrai dalam porsi kecil untuk memastikan profil rasa yang paling segar.
               </p>
               <button class="inline-flex items-center gap-2 bg-secondary hover:bg-secondary/90 text-on-secondary font-semibold px-6 py-3 rounded-xl transition-all duration-200 text-sm shadow-lg shadow-primary/40">
-                Learn More
+                Pelajari Lebih Lanjut
                 <span class="material-symbols-outlined text-base">arrow_forward</span>
               </button>
             </div>
@@ -207,11 +207,11 @@ const reviews = [
 
         <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-8 sm:mb-12">
           <div>
-            <p class="text-[11px] sm:text-xs font-bold uppercase tracking-widest text-secondary mb-1.5">Top Picks</p>
-            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-primary">Best Sellers</h2>
+            <p class="text-[11px] sm:text-xs font-bold uppercase tracking-widest text-secondary mb-1.5">Pilihan Teratas</p>
+            <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-primary">Paling Laris</h2>
           </div>
           <Link href="/shop" class="inline-flex items-center gap-1.5 text-sm font-semibold text-secondary hover:text-on-secondary-container transition-colors duration-200 self-start sm:self-auto">
-            View all products
+            Lihat semua produk
             <span class="material-symbols-outlined text-base">arrow_forward</span>
           </Link>
         </div>
@@ -252,8 +252,8 @@ const reviews = [
     <section class="py-14 sm:py-20 bg-surface-container-low">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-8 sm:mb-12">
-          <p class="text-[11px] sm:text-xs font-bold uppercase tracking-widest text-secondary mb-1.5">Customer Love</p>
-          <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-primary">What People Are Saying</h2>
+          <p class="text-[11px] sm:text-xs font-bold uppercase tracking-widest text-secondary mb-1.5">Kecintaan Pelanggan</p>
+          <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-primary">Apa Kata Mereka</h2>
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">

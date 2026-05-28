@@ -28,6 +28,13 @@ class RiwayatTransaksiController extends Controller
         }
 
         if ($order->status_payment === 'pending') {
+            // Restore stock since it was deducted at checkout
+            foreach ($order->orderItems as $item) {
+                if ($item->product) {
+                    $item->product->increment('stok', $item->qty);
+                }
+            }
+
             $order->update([
                 'status' => 'cancelled',
                 'status_payment' => 'failed'

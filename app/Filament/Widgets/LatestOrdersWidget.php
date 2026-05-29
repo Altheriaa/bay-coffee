@@ -4,6 +4,7 @@ namespace App\Filament\Widgets;
 
 use App\Models\Order;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
 
@@ -23,30 +24,30 @@ class LatestOrdersWidget extends BaseWidget
                     ->limit(10)
             )
             ->columns([
-                Tables\Columns\TextColumn::make('invoice_number')
+                TextColumn::make('invoice_number')
                     ->label('No. Invoice')
                     ->searchable()
                     ->weight('bold')
                     ->color('primary')
                     ->copyable(),
 
-                Tables\Columns\TextColumn::make('customer.nama')
+                TextColumn::make('customer.nama')
                     ->label('Pelanggan')
                     ->searchable()
                     ->default('-'),
 
-                Tables\Columns\TextColumn::make('total_price')
+                TextColumn::make('total_price')
                     ->label('Total')
                     ->money('IDR')
                     ->sortable()
                     ->weight('bold'),
 
-                Tables\Columns\TextColumn::make('payment_method')
+                TextColumn::make('payment_method')
                     ->label('Metode')
                     ->badge()
                     ->default('-'),
 
-                Tables\Columns\TextColumn::make('status')
+                TextColumn::make('status')
                     ->label('Status Order')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
@@ -58,7 +59,7 @@ class LatestOrdersWidget extends BaseWidget
                         default => 'gray',
                     }),
 
-                Tables\Columns\TextColumn::make('status_payment')
+                TextColumn::make('status_payment')
                     ->label('Pembayaran')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
@@ -69,7 +70,7 @@ class LatestOrdersWidget extends BaseWidget
                         default => 'gray',
                     }),
 
-                Tables\Columns\TextColumn::make('created_at')
+                TextColumn::make('created_at')
                     ->label('Tanggal')
                     ->dateTime('d M Y, H:i')
                     ->sortable()

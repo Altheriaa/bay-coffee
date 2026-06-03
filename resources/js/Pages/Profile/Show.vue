@@ -66,14 +66,14 @@ const userInitials = computed(() => {
         <p class="text-sm text-on-primary/60 mt-1">Kelola data informasi diri, alamat, dan keamanan akun Anda</p>
       </div>
     </section>
-
+    laj
     <section class="py-8 sm:py-12 bg-background">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col lg:flex-row gap-8">
-          
+
           <!-- SIDEBAR: AVATAR CARD & MENU TABS -->
           <div class="w-full lg:w-80 flex-shrink-0 flex flex-col gap-6">
-            
+
             <!-- Loyalty & Avatar Card -->
             <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/20 p-5 text-center shadow-sm">
               <div class="w-20 h-20 mx-auto rounded-full bg-secondary/15 border-2 border-secondary flex items-center justify-center text-secondary font-bold text-2xl mb-4">
@@ -108,7 +108,7 @@ const userInitials = computed(() => {
             <div v-show="activeMenu === 'profile'">
               <h2 class="text-lg sm:text-xl font-bold text-primary mb-1">Detail Informasi Diri</h2>
               <p class="text-xs sm:text-sm text-on-surface-variant mb-6 border-b border-outline-variant/20 pb-4">Pastikan data kontak Anda aktif untuk kelancaran pengiriman kopi.</p>
-              
+
               <form @submit.prevent="submit" class="space-y-5">
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
@@ -119,7 +119,7 @@ const userInitials = computed(() => {
                   <div>
                     <label class="block text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2">Email</label>
                     <input type="email" v-model="form.email" required
-                      class="w-full bg-surface border border-outline-variant/30 rounded-xl px-4 py-3 text-sm text-on-surface focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all duration-200" 
+                      class="w-full bg-surface border border-outline-variant/30 rounded-xl px-4 py-3 text-sm text-on-surface focus:outline-none focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all duration-200"
                       :class="form.errors.email ? 'border-error focus:border-error focus:ring-error/20' : 'border-outline-variant focus:border-secondary'"/>
                     <p v-if="form.errors.email" class="mt-1 text-xs text-error">{{ form.errors.email }}</p>
                   </div>
@@ -150,7 +150,7 @@ const userInitials = computed(() => {
             <div v-show="activeMenu === 'security'">
               <h2 class="text-lg sm:text-xl font-bold text-primary mb-1">Ubah Password</h2>
               <p class="text-xs sm:text-sm text-on-surface-variant mb-6 border-b border-outline-variant/20 pb-4">Gunakan password yang kuat demi menjaga keamanan akun Anda.</p>
-              
+
               <form @submit.prevent="submitPassword" class="space-y-5">
                 <div class="max-w-md space-y-5">
                   <div>

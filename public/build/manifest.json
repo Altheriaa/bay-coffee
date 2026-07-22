@@ -1,6 +1,6 @@
 {
-  "_axios-VJ9QUW-9.js": {
-    "file": "assets/axios-VJ9QUW-9.js",
+  "_axios-CG2Q_wu-.js": {
+    "file": "assets/axios-CG2Q_wu-.js",
     "name": "axios",
     "imports": [
       "resources/js/app.js"
@@ -68,7 +68,7 @@
     "isEntry": true
   },
   "resources/js/Pages/Auth/ForgotPassword.vue": {
-    "file": "assets/ForgotPassword-0b_s-9Pg.js",
+    "file": "assets/ForgotPassword-sDkAXGGG.js",
     "name": "ForgotPassword",
     "src": "resources/js/Pages/Auth/ForgotPassword.vue",
     "isDynamicEntry": true,
@@ -77,7 +77,7 @@
     ]
   },
   "resources/js/Pages/Auth/Login.vue": {
-    "file": "assets/Login-DlGaadKN.js",
+    "file": "assets/Login-CHpKxyYK.js",
     "name": "Login",
     "src": "resources/js/Pages/Auth/Login.vue",
     "isDynamicEntry": true,
@@ -86,7 +86,7 @@
     ]
   },
   "resources/js/Pages/Auth/Register.vue": {
-    "file": "assets/Register-C0UQSVjq.js",
+    "file": "assets/Register-CjZQKEgR.js",
     "name": "Register",
     "src": "resources/js/Pages/Auth/Register.vue",
     "isDynamicEntry": true,
@@ -95,7 +95,7 @@
     ]
   },
   "resources/js/Pages/Auth/ResetPassword.vue": {
-    "file": "assets/ResetPassword-BkBrC293.js",
+    "file": "assets/ResetPassword-CN5OaaqK.js",
     "name": "ResetPassword",
     "src": "resources/js/Pages/Auth/ResetPassword.vue",
     "isDynamicEntry": true,
@@ -104,18 +104,18 @@
     ]
   },
   "resources/js/Pages/Cart/Index.vue": {
-    "file": "assets/Index-DeXT5ogm.js",
+    "file": "assets/Index-CGswDDE3.js",
     "name": "Index",
     "src": "resources/js/Pages/Cart/Index.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/Pages/Layouts/App.vue",
       "resources/js/app.js",
-      "_axios-VJ9QUW-9.js"
+      "_axios-CG2Q_wu-.js"
     ]
   },
   "resources/js/Pages/Home.vue": {
-    "file": "assets/Home-l2OMGFPM.js",
+    "file": "assets/Home-B78FcuYw.js",
     "name": "Home",
     "src": "resources/js/Pages/Home.vue",
     "isDynamicEntry": true,
@@ -125,7 +125,7 @@
     ]
   },
   "resources/js/Pages/Layouts/App.vue": {
-    "file": "assets/App-Cs4sIK1W.js",
+    "file": "assets/App-C-Ke9LSq.js",
     "name": "App",
     "src": "resources/js/Pages/Layouts/App.vue",
     "isDynamicEntry": true,
@@ -137,7 +137,7 @@
     ]
   },
   "resources/js/Pages/Profile/Show.vue": {
-    "file": "assets/Show-C7tGg8jD.js",
+    "file": "assets/Show-QIeKHD9l.js",
     "name": "Show",
     "src": "resources/js/Pages/Profile/Show.vue",
     "isDynamicEntry": true,
@@ -147,18 +147,18 @@
     ]
   },
   "resources/js/Pages/Ship/Index.vue": {
-    "file": "assets/Index-BMR9ZxCE.js",
+    "file": "assets/Index-BJWIr6Td.js",
     "name": "Index",
     "src": "resources/js/Pages/Ship/Index.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/Pages/Layouts/App.vue",
       "resources/js/app.js",
-      "_axios-VJ9QUW-9.js"
+      "_axios-CG2Q_wu-.js"
     ]
   },
   "resources/js/Pages/Shop/Index.vue": {
-    "file": "assets/Index-Bv6p3o4P.js",
+    "file": "assets/Index-Dsefsd4E.js",
     "name": "Index",
     "src": "resources/js/Pages/Shop/Index.vue",
     "isDynamicEntry": true,
@@ -168,7 +168,7 @@
     ]
   },
   "resources/js/Pages/Shop/Show.vue": {
-    "file": "assets/Show-ifv0rcai.js",
+    "file": "assets/Show-CylWZYnh.js",
     "name": "Show",
     "src": "resources/js/Pages/Shop/Show.vue",
     "isDynamicEntry": true,
@@ -178,18 +178,18 @@
     ]
   },
   "resources/js/Pages/Transaction/Index.vue": {
-    "file": "assets/Index-ByELjPYi.js",
+    "file": "assets/Index-CnTMbe8c.js",
     "name": "Index",
     "src": "resources/js/Pages/Transaction/Index.vue",
     "isDynamicEntry": true,
     "imports": [
       "resources/js/Pages/Layouts/App.vue",
       "resources/js/app.js",
-      "_axios-VJ9QUW-9.js"
+      "_axios-CG2Q_wu-.js"
     ]
   },
   "resources/js/Pages/Transaction/Invoice.vue": {
-    "file": "assets/Invoice-C12wFZ1f.js",
+    "file": "assets/Invoice-CT3jijbP.js",
     "name": "Invoice",
     "src": "resources/js/Pages/Transaction/Invoice.vue",
     "isDynamicEntry": true,
@@ -201,7 +201,7 @@
     ]
   },
   "resources/js/app.js": {
-    "file": "assets/app-pBqqg-56.js",
+    "file": "assets/app-BigSoHRO.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,

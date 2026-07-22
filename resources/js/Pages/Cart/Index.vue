@@ -80,9 +80,10 @@ const subtotal = computed(() => {
   }, 0);
 });
 
+const shippingCost = computed(() => subtotal.value >= 300000 ? 0 : 30000);
+
 const total = computed(() => {
-  const shipping = subtotal.value >= 400000 ? 0 : 50000;
-  return subtotal.value + shipping;
+  return subtotal.value + shippingCost.value;
 });
 
 const updateQty = (cartItemId, currentQty, amount) => {
@@ -288,11 +289,11 @@ const checkout = async () => {
                 </div>
                 <div class="flex justify-between text-sm">
                   <span class="text-on-surface-variant">Pengiriman</span>
-                  <span class="font-semibold text-primary" :class="subtotal >= 400000 ? 'text-secondary' : ''">
-                    {{ subtotal >= 400000 ? 'Gratis' : formatRupiah(30000) }}
+                  <span class="font-semibold text-primary" :class="subtotal >= 300000 ? 'text-secondary' : ''">
+                    {{ subtotal >= 300000 ? 'Gratis' : formatRupiah(30000) }}
                   </span>
                 </div>
-                <div v-if="subtotal >= 400000" class="flex items-center gap-1.5 text-secondary text-xs">
+                <div v-if="subtotal >= 300000" class="flex items-center gap-1.5 text-secondary text-xs">
                   <span class="material-symbols-outlined text-xs" style="font-variation-settings:'FILL' 1">check_circle</span>
                   Anda mendapatkan gratis ongkir!
                 </div>
